@@ -3,6 +3,7 @@
 namespace Webkul\RestApi\Http\Resources\V1\Shop\Catalog;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Throwable;
 use Webkul\Checkout\Facades\Cart;
 use Webkul\Product\Facades\ProductImage;
 
@@ -100,6 +101,62 @@ class ProductResource extends JsonResource
 
         $productTypeInstance = $product->getTypeInstance();
 
+        $special_price = 0;
+        $formatted_special_price = 0;
+        $regular_price = 0;
+        $formatted_regular_price = 0;
+        $errors = [];
+        try{
+            $special_price = $this->when(
+                $productTypeInstance ->haveSpecialPrice(),
+                core()->convertPrice($productTypeInstance->getMinimalPrice())
+            );
+        }
+        catch(Throwable $ex)
+        {
+            $errors[] = $ex->getMessage();
+        }
+        try{
+            $formatted_special_price = $this->when(
+                $productTypeInstance->haveSpecialPrice(),
+                core()->currency($productTypeInstance->getMinimalPrice())
+            );
+        }
+        catch(Throwable $ex)
+        {
+            $errors[] = $ex->getMessage();
+        }
+        finally{}
+        try{
+            $regular_price = $this->when(
+                $productTypeInstance->haveSpecialPrice(),
+                data_get($productTypeInstance->getProductPrices(), 'regular_price.price')
+            );
+        }
+        catch(Throwable $ex)
+        {
+            $errors[] = $ex->getMessage();
+        }
+        finally{}
+        try{
+            $formatted_regular_price = $this->when(
+                $productTypeInstance->haveSpecialPrice(),
+                data_get($productTypeInstance->getProductPrices(), 'regular_price.formated_price')
+            );
+        }
+        catch(Throwable $ex)
+        {
+            $errors[] = $ex->getMessage();
+        }
+        finally{}
+        return [
+            'special_price'           => $special_price,
+            'formatted_special_price' => $formatted_special_price,
+            'regular_price'           => $regular_price,
+            'formatted_regular_price' => $formatted_regular_price,
+            'errors' => $errors,
+        ];
+        /*
         return [
             'special_price'           => $this->when(
                 $productTypeInstance ->haveSpecialPrice(),
@@ -118,6 +175,7 @@ class ProductResource extends JsonResource
                 data_get($productTypeInstance->getProductPrices(), 'regular_price.formated_price')
             ),
         ];
+        */
     }
 
     /**

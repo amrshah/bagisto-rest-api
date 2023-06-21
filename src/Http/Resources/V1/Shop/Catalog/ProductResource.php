@@ -157,6 +157,7 @@ class ProductResource extends JsonResource
             'errors' => $errors,
         ];
         /*
+        this is the original code that was edited into above, starting from line 104 to 158
         return [
             'special_price'           => $this->when(
                 $productTypeInstance ->haveSpecialPrice(),

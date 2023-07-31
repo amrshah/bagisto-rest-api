@@ -1,7 +1,11 @@
 {
-    "name": "bagisto/rest-api",
+    "name": "bagisto/rest-api-extended",
     "license": "MIT",
     "authors": [
+        {
+            "name": "Ali Raza",
+            "email": "amr.shah@gmail.com"
+        },  
         {
             "name": "Devansh Bawari",
             "email": "devansh.bawari419@webkul.in"

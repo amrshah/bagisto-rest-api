@@ -2,7 +2,7 @@
 <p>Changes in this fork</p>
 <ul>
   <li>
-    add HaspApiTokens to /packages/Webkul/Customer/src/Models/Customer.php
+    Added HasApiTokens to /packages/Webkul/Customer/src/Models/Customer.php
   </li>
   </ul>
 <p>EOF Changes in this fork</p>

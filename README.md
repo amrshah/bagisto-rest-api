@@ -1,4 +1,7 @@
 # Bagisto REST API
+<p>Changes in this fork</p>
+add HaspApiTokens to Customer model
+<p>EOF Changes in this fork</p>
 
 <p>Bagisto REST API is a medium to use the features of the core Bagisto System. By using Bagisto REST API, you can integrate your application to serve the default content of Bagisto.</p>
 
